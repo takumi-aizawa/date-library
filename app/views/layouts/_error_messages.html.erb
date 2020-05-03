@@ -1,0 +1,11 @@
+<% if model.errors.any? %> <%# モデルの中でエラーが一つでも存在するならtrueを返す %>
+  <div id="error_explanation" class="alert alert-warning"> <%# 警告の黄色 %>
+    <ul class="mb-0">
+      <% model.errors.full_messages.each do |message| %> <%# erroes.full_message→エラーメッセの全取得 %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%# フォーム入力時のエラーメッセージ %>

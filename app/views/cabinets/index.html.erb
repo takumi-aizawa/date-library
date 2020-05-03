@@ -1,0 +1,24 @@
+<h1 class="display-3 text-primary">Cabinet</h1>
+
+<h3><%= @msg %></h3>
+
+
+
+<table class="table mb-5">
+  <tr>
+    <th>No.</th><th>File No.</th><th>File Name</th><th>保管期限</th><th>保管場所</th>
+  </tr>
+  <% @cabinets.each do |obj| %>
+  
+  <tr>
+    <td><%= obj.id %></td>
+    <td><%= obj.file_no %></td>
+    <td><%= obj.file_name %></td>
+    <td><%= obj.expired_at %></td>
+    <td><%= obj.placed_at %></td>
+  </tr>
+  
+  <% end %>
+</table>
+
+<%= paginate @cabinets %>

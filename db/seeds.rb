@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+  #Cabinet.create(file_no: 'A1', file_name: '請求書', expired_at: '22下末', placed_at: '1FA1')
+   #サンプルダミーデータ
+  

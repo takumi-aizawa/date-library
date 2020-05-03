@@ -1,0 +1,38 @@
+<div class="text-center"> <%# cabinetへの新規登録画面 %>
+  <h1>Cabinetへの登録</h1>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 offset-sm-3">
+
+    <%= form_with(model: @cabinet, local: true) do |f| %>
+      <%= render 'layouts/error_messages', model: f.object %>
+      
+      <div class="form-group">
+        <%= f.label :file_no, 'ファイルＮｏ' %> <%# f.label f.text_fieldでカラムを指定する %>
+        <%= f.text_field :file_no, class: 'form-control', placeholder: "ex.YGM-01" %> <%# class以下がbootstrap %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :file_name, 'ファイル名' %>
+        <%= f.text_field :file_name, class: 'form-control', placeholder: "ex.2020fy NSC請求書" %>
+      </div>
+      
+
+      <div class="form-group">
+        <%= f.label :expired_at, '保管期限' %>
+        <%= f.text_field :expired_at, class: 'form-control', placeholder: "ex.20270331" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :placed_at, '保管場所' %>
+        <%= f.text_field :placed_at, class: 'form-control', placeholder: "ex.KI/SJ/1F/P2" %>
+      </div>
+
+      
+      <%= f.submit '登録申請', class: 'btn btn-primary btn-block' %>  <%# f.submit⇒対応するモデルクラスが何も情報を持っていなければ自動的にcreateアクションへ、すでに情報を持っている場合はupdateアクションへ自動的に振り分けてくれる %>
+      
+      
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+<% flash.each do |message_type, message| %> <%# オブジェクト.each.do |変数(ブロックパラメータ)キー, 〃値| %>
+  <div class="alert alert-<%= message_type %>"><%= message %></div> <%# .rbファイルを呼び出す %>
+<% end %>
+
+<%# ログイン可否時のフラッシュメッセージ %>

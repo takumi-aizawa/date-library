@@ -29,5 +29,7 @@ module DateLibrary
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    
+    config.i18n.default_locale = :ja #エラーメッセージの日本語化用 モジュール追加ののちja.ymlをいじる
   end
 end

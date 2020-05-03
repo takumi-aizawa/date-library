@@ -1,0 +1,38 @@
+<h1 class="display-4 text-primary">Cabinet</h1>
+
+<h3>あなたの仕掛かり</h3>
+<table class="table">
+  <tr>
+    <th>Id</th><th>File No.</th><th>File Name</th><th>保管期限</th><th>保管場所</th><th>ステータス</th>
+  </tr>
+  <% @data.each do |obj| %>
+  
+  <tr>
+    <td><%= obj.id %></td>
+    <td><%= obj.file_no %></td>
+    <td><%= obj.file_name %></td>
+    <td><%= obj.expired_at %></td>
+    <td><%= obj.placed_at %></td>
+    <td><%= obj.status %></td>
+  </tr>
+  
+  <% end %>
+</table>
+
+<h3><%= @msg(申請一覧)%></h3>
+<table class="table">
+  <tr>
+    <th>Id</th><th>File No.</th><th>File Name</th><th>保管期限</th><th>保管場所</th>
+  </tr>
+  <% @data.each do |obj| %>
+  
+  <tr>
+    <td><%= obj.id %></td>
+    <td><%= obj.file_no %></td>
+    <td><%= obj.file_name %></td>
+    <td><%= obj.expired_at %></td>
+    <td><%= obj.placed_at %></td>
+  </tr>
+  
+  <% end %>
+</table>
