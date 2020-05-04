@@ -3,7 +3,7 @@
 <h3>あなたの仕掛かり</h3>
 <table class="table">
   <tr>
-    <th>Id</th><th>File No.</th><th>File Name</th><th>保管期限</th><th>保管場所</th><th>ステータス</th>
+    <th>Id</th><th>File No.</th><th>File Name</th><th>保管期限</th><th>保管場所</th><th>ステータス</th><th>申請者</th><th>申請内容</th>
   </tr>
   <% @data.each do |obj| %>
   
@@ -14,6 +14,8 @@
     <td><%= obj.expired_at %></td>
     <td><%= obj.placed_at %></td>
     <td><%= obj.status %></td>
+    <td><%= obj.user %></td>
+    <td><%= obj.changes %></td>
   </tr>
   
   <% end %>

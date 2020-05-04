@@ -3,17 +3,17 @@
 </div>
 
 <div class="row">
-  <div class="col-sm-6 offset-sm-3">
+  <div class="col-sm-6 offset-sm-3 ">
 
     <%= form_with(model: @cabinet, local: true) do |f| %>
       <%= render 'layouts/error_messages', model: f.object %>
       
-      <div class="form-group">
+      <div class="form-group "> <%# form-inline form-control-plaintext で横並び%>
         <%= f.label :file_no, 'ファイルＮｏ' %> <%# f.label f.text_fieldでカラムを指定する %>
         <%= f.text_field :file_no, class: 'form-control', placeholder: "ex.YGM-01" %> <%# class以下がbootstrap %>
       </div>
 
-      <div class="form-group">
+      <div class="form-group "> 
         <%= f.label :file_name, 'ファイル名' %>
         <%= f.text_field :file_name, class: 'form-control', placeholder: "ex.2020fy NSC請求書" %>
       </div>
@@ -30,8 +30,8 @@
       </div>
 
       
-      <%= f.submit '登録申請', class: 'btn btn-primary btn-block' %>  <%# f.submit⇒対応するモデルクラスが何も情報を持っていなければ自動的にcreateアクションへ、すでに情報を持っている場合はupdateアクションへ自動的に振り分けてくれる %>
-      
+      <%= f.submit '登録申請', class: 'btn btn-primary ' %>  <%# f.submit⇒対応するモデルクラスが何も情報を持っていなければ自動的にcreateアクションへ、すでに情報を持っている場合はupdateアクションへ自動的に振り分けてくれる %>
+      <%# btn-blockは横幅いっぱい%>
       
     <% end %>
   </div>

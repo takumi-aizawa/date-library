@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_02_094437) do
+ActiveRecord::Schema.define(version: 2020_05_03_090759) do
 
   create_table "cabinets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "file_no"
@@ -19,6 +19,9 @@ ActiveRecord::Schema.define(version: 2020_05_02_094437) do
     t.string "placed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status"
+    t.bigint "user_id"
+    t.bigint "manager_id"
   end
 
   create_table "managers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|

@@ -1,8 +1,7 @@
 class CabinetsController < ApplicationController #cabinetへの登録申請、承認等
   before_action :require_user_logged_in, only: [:index] #ApplicationControllerで定義したメソッド
   #before_action :correct_user, only: [:destroy]
-  
-  #before_action user_admin, only: [:index]
+
   
   def index
     @msg = 'Cabinet data.'
@@ -49,6 +48,14 @@ class CabinetsController < ApplicationController #cabinetへの登録申請、�
     redirect_to messages_url
   end
   
+  def destroy_all
+    checked_data = params[:deletes].keys # ここでcheckされたデータを受け取っています。
+    if RegularDebitAccount.destroy(checked_data)
+      redirect_to regular_debit_accounts_path
+    else
+      render action: 'index'
+    end
+  end
 end  
 
 

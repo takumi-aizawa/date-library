@@ -9,4 +9,6 @@ class ApplicationController < ActionController::Base #すべてのコントロ�
       redirect_to login_url #ログイン画面へいってね。redirect_to名前_url アクションはデータ保存後画面遷移。session/new実行
     end
   end
+  
+
 end

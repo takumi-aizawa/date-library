@@ -20,26 +20,22 @@
       </div>
       
       <div class="form-group">
-        <%= f.label :position, '役職' %> <%# ラベル名をPositionに %> <%# 対応するラベルを生成 %>
-                                             <%# ▼を生成⇒f.select(:sex, [['Male', 1], ['Female', 2]])   %>
-                                             <%# ☑を生成⇒f.check_box 'agreement', {:checked => true}, true, false  %>
-
-        <%= f.select :age, [["管理者", "管理者"], ["スタッフ", "スタッフ"]],  :prompt => "選択してください" %>
-        <%# ラベル名をNameに %>
-        
+        <label class="control-label">管理者権限</label>
+        <label><%= f.radio_button :Position, "管理者" %> 管理者 </label>
+        <label><%= f.radio_button :Position, "管理者以外" %> 管理者以外</label>
       </div>
-
       <div class="form-group">
         <%= f.label :password, 'パスワード' %>
         <%= f.password_field :password, class: 'form-control', placeholder: "ex.567252taro" %> <%# 'form-control'でフォーム幅と名札を２段にする %>
       </div>
 
       <div class="form-group">
-        <%= f.label :password_confirmation, 'パスワードの再入力（※誤登録防止用）' %>
+        <%= f.label :password_confirmation, 'パスワード（確認）' %>
         <%= f.password_field :password_confirmation, class: 'form-control', placeholder: "ex.567252taro" %>
       </div>
+      
 
-      <%= f.submit '新規登録', class: 'btn btn-primary btn-block' %> <%# f.submit⇒対応するモデルクラスが何も情報を持っていなければ自動的にcreateアクションへ、すでに情報を持っている場合はupdateアクションへ自動的に振り分けてくれる %>
+      <%= f.submit '新規登録', class: 'btn btn-primary ' %> <%# f.submit⇒対応するモデルクラスが何も情報を持っていなければ自動的にcreateアクションへ、すでに情報を持っている場合はupdateアクションへ自動的に振り分けてくれる %>
       <%# btn-block 幅いっぱい広がる %>
     <% end %>
   </div>

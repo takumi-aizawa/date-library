@@ -6,5 +6,6 @@ module SessionsHelper #ヘルパーでメソッドを定義する。ログイン
   def logged_in? #ログイン有無の確認メソッドを定義
     !!current_user #!でnot演算子よりfalse、!!でtrue。ログインユーザならtrue、違うならfalseを出す
   end
+  
 
 end
