@@ -47,8 +47,14 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-production:
-  <<: *default
+production: #<<: *defaultではmysqldのまま。Herokuで使えない。なのでadapter: postgresqlに変更する
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
   database: date-library_production
   username: date-library
   password: <%= ENV['DATE-LIBRARY_DATABASE_PASSWORD'] %>
+
+#production:
+#  <<: *default
+
