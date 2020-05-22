@@ -20,6 +20,7 @@
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><%= current_user.name %></a>
             <ul class="dropdown-menu dropdown-menu-right"> <%# プルダウン＋bootstrap適用 %>
               <li class="dropdown-item"><%= link_to 'cabinetへの登録', new_cabinet_path(current_user) %></li> <%# 仮設置 %>
+              <li class="dropdown-item"><%= link_to 'cabinetへの登録', new_cabinet_path(current_user) %></li> <%# 仮設置 %>
               <li class="dropdown-item"><%= link_to '仕掛かり', requests_path(current_user) %></li> <%# user_path(10) # => 'users/10'に変換される %>
               <li class="dropdown-divider"></li> <%# current_user サインインしているユーザーを取得する %>
               <li class="dropdown-item"><%= link_to 'Logout', logout_path, method: :delete %></li>
