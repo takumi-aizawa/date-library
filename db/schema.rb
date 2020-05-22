@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_03_090759) do
+ActiveRecord::Schema.define(version: 2020_05_17_051030) do
 
   create_table "cabinets", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "file_no"
@@ -38,6 +38,11 @@ ActiveRecord::Schema.define(version: 2020_05_03_090759) do
     t.string "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "file_no"
+    t.string "file_name"
+    t.date "expired_at"
+    t.string "placed_at"
+    t.integer "status"
     t.index ["cabinet_id"], name: "index_requests_on_cabinet_id"
     t.index ["user_id"], name: "index_requests_on_user_id"
   end
@@ -45,7 +50,7 @@ ActiveRecord::Schema.define(version: 2020_05_03_090759) do
   create_table "trackings", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "file_no"
     t.string "file_name"
-    t.integer "staus"
+    t.integer "status"
     t.datetime "expired_at"
     t.string "placed_at"
     t.bigint "user_id"

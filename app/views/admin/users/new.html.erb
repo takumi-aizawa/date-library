@@ -1,2 +1,42 @@
-<h1>Admin::Users#new</h1>
-<p>Find me in app/views/admin/users/new.html.erb</p>
+<div class="text-center"> <%# bootstrap適用 %>
+  <h1>Sign up</h1>　 <%# 新規登録画面のタイトル %>
+</div>
+
+<div class="row mb-5">
+  <div class="col-sm-6 offset-sm-3"> <%# ３カラム空白＋６カラム使用、残り３カラム空き %>
+ <%#= form_with model: @user, url: users_path,local: true do |form| %> 
+    <%= form_with(model: @user, url: admin_users_path,local: true) do |f| %> <%# local: true⇒画面遷移可能 、form_with はデフォルトでusers_pathを認識、URLを指定しないと希望先へ飛ばない。 %>
+      <%# form_with(model: @user)⇒Controllerのnew アクションで用意した@userを使用することを明示 %>
+      <%= render 'layouts/error_messages', model: f.object %> <%# renderは画面遷移のみ %>
+      <%# render 'フォルダ名/ファイル名'  エラーメッセージファイルを引っ張ってくる。なぜ引っ張る工程を踏むのか、それは別Viewでも同じコードを使用するため長文入力よりrenderの方が効率が良い%>
+      <div class="form-group"> <%# bootstrap適用 %>
+        <%= f.label :name, '氏　名' %> <%# ラベル名をNameに %>
+        <%= f.text_field :name, class: 'form-control', placeholder: "ex.山田太郎" %> <%# form-controlがないとレイアウト崩れが起きる %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email, 'メールアドレス' %>
+        <%= f.email_field :email, class: 'form-control', placeholder: "ex.taro@gmail.com" %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.check_box :admin, id: "check1" %> <%# radio_button %>
+        <%= f.label :admin, '管理者権限' %> <%# adminのカラムを宣言したことで、登録される %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password, 'パスワード' %>
+        <%= f.password_field :password, class: 'form-control', placeholder: "ex.567252taro" %> <%# 'form-control'でフォーム幅と名札を２段にする %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, 'パスワード（確認）' %>
+        <%= f.password_field :password_confirmation, class: 'form-control', placeholder: "ex.567252taro" %>
+      </div>
+      
+
+
+      <%= f.submit '新規登録', class: 'btn btn-primary ' %> <%# f.submit⇒対応するモデルクラスが何も情報を持っていなければ自動的にcreateアクションへ、すでに情報を持っている場合はupdateアクションへ自動的に振り分けてくれる %>
+      <%# btn-block 幅いっぱい広がる %>
+    <% end %>
+  </div>
+</div>

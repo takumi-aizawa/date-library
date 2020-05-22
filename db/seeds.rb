@@ -8,4 +8,4 @@
 
   #Cabinet.create(file_no: 'A1', file_name: '請求書', expired_at: '22下末', placed_at: '1FA1')
    #サンプルダミーデータ
-  
+  AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

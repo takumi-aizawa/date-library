@@ -1,19 +1,33 @@
-ja: #エラーメッセージの日本語化用
+ja: #エラーメッセージの日本語化用 
+  activerecord:
+    attributes: #既定
+      user: #モデル名を宣言
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+
   activerecord:
     attributes: # attributes:の直下に
-      cabinet: # モデル名を指定し
+      cabinet: # モデル名を宣言
         file_no: ファイルNo # カラム名を指定する。
         file_name: ファイル名 # カラム名を指定する。
         expired_at: 保管期限 # カラム名を指定する。
         placed_at: 保管場所 # カラム名を指定する。
 
+  activerecord:
+    attributes: # attributes:の直下に
+      request: # モデル名を宣言
+        comment: コメント # カラム名を指定する。
 
-ja:
   date:
     formats:
       default: "%Y/%m/%d"
       
-ja: #既定
+  time:
+    formats:
+      default: "%Y/%m/%d %H:%M:%S"
+      
+ #ページネーション用
   views: #フォルダ名
     pagination: #既定？
       first: "&laquo; 最初"

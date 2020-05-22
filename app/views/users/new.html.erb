@@ -1,4 +1,4 @@
-<div class="text-center"> <%# bootstrap適用 %>
+<div class="text-center"> <%# admin専用を別につくったので不要　あとで削除 %>
   <h1>Sign up</h1>　 <%# 新規登録画面のタイトル %>
 </div>
 
@@ -22,7 +22,6 @@
       <div class="form-group">
         <label class="control-label">管理者権限</label>
         <label><%= f.radio_button :Position, "管理者" %> 管理者 </label>
-        <label><%= f.radio_button :Position, "管理者以外" %> 管理者以外</label>
       </div>
       <div class="form-group">
         <%= f.label :password, 'パスワード' %>

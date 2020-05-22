@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class UsersController < ApplicationController #admin専用を作ったので不要　あとで削除
 
   def index
     #@users = User.order(id: :desc).page(params[:page]).per(25) #Userはモデル。order(id)でid情報取得

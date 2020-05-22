@@ -58,6 +58,9 @@ gem 'kaminari'
 
 gem 'rails-i18n' #エラーメッセージの日本語化 5/2追加
 
-group :production do
+group :production do #Herokuデプロイ向け環境設定(Mysql→PostgreSQL)5.5追加
   gem 'pg', '>= 0.18', '< 2.0'
-end
+end #デプロイ前の必須事項 1.Gemfile変更 2.config/database.yml変更後、$ bundle install --without production 3.heroku addons:create heroku-postgresql:hobby-dev(postgresqlのaddon登録) 4.$ git add .、$ git commit -m 'for heroku'
+
+#gem 'activeadmin' #管理画面作成5.5追加
+#gem 'devise'      #〃

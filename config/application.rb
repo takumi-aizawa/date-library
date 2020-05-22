@@ -30,6 +30,9 @@ module DateLibrary
     # Don't generate system test files.
     config.generators.system_tests = nil
     
-    config.i18n.default_locale = :ja #エラーメッセージの日本語化用 モジュール追加ののちja.ymlをいじる
+    config.i18n.default_locale = :ja #エラーメッセージの日本語化用 モジュール追加ののちja.ymlをいじる。application.rbへi18を読み込む設定を記載
+    #config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]
+    
+    config.time_zone = 'Tokyo' # タイムゾーンを日本時間に設定 5.17追加
   end
 end

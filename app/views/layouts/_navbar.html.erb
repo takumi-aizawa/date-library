@@ -1,4 +1,4 @@
-<header class="mb-5 pb-5"> <%# ナビバーの内余白下、外余白下を設定 %>
+<header class="mb-5 pb-4"> <%# ナビバーの内余白下、外余白下を設定 %>
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top"> <%# bootstrap適用 fixed-topナビ固定%>
     <a class="navbar-brand" href="/">Date Library</a> <%# 左上表記 %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"> <%# bootstrap適用 %>
@@ -7,7 +7,26 @@
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent"> <%# bootstrap適用 %>
       <ul class="navbar-nav"> <%# bootstrap適用 %>
-        <% if logged_in? %> <%# helperで定義している事が前提！ログインしている場合にlogoutを実装 %>
+        
+        <%# ログイン後adminならsignupを表示、adminでないならsignup不要としたい%>
+        
+        <% if logged_in? %> <%# helperで定義している事が前提！ログインしている場合にlogoutを実装 %>  
+
+        
+        <% if current_user.admin? %> <%# .admin?は管理者ならtrueを返す %>
+          <li class="nav-item"><%= link_to 'Signup', admin_signup_path, class: 'nav-link' %></li>  <%# cabinets_pathは/cabinet(index)に飛ぶ %>
+          <li class="nav-item"><%= link_to 'Library', cabinets_path, class: 'nav-link' %></li>  <%# cabinets_pathは/cabinet(index)に飛ぶ %>
+          <li class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><%= current_user.name %></a>
+            <ul class="dropdown-menu dropdown-menu-right"> <%# プルダウン＋bootstrap適用 %>
+              <li class="dropdown-item"><%= link_to 'cabinetへの登録', new_cabinet_path(current_user) %></li> <%# 仮設置 %>
+              <li class="dropdown-item"><%= link_to '仕掛かり', requests_path(current_user) %></li> <%# user_path(10) # => 'users/10'に変換される %>
+              <li class="dropdown-divider"></li> <%# current_user サインインしているユーザーを取得する %>
+              <li class="dropdown-item"><%= link_to 'Logout', logout_path, method: :delete %></li>
+            </ul>
+          </li>
+        <% else %>
+        
           <li class="nav-item"><%= link_to 'Library', cabinets_path, class: 'nav-link' %></li>  <%# cabinets_pathは/cabinet(index)に飛ぶ %>
           <li class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><%= current_user.name %></a>
@@ -17,8 +36,11 @@
               <li class="dropdown-item"><%= link_to 'Logout', logout_path, method: :delete %></li>
             </ul>
           </li>
+          
+        <% end %>
+          
         <% else %> <%# falseの場合以下を実行 %>
-          <li class="nav-item"><%= link_to 'Signup', signup_path, class: 'nav-link' %></li> <%# bootstrap適用 %>  
+          <%#<li class="nav-item">%><%#= link_to 'Signup', admin_signup_path, class: 'nav-link' %><%#</li>%> <%# ユーザはログイン機能のみ %>  
           <li class="nav-item"><%= link_to 'Login', login_path, class: 'nav-link' %></li>
         <% end %>
       </ul>

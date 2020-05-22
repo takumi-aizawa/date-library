@@ -9,21 +9,22 @@
     <%= form_with(url: login_path, scope: :session, local: true) do |f| %>
       <%#= render 'layouts/error_messages', model: f.object %>
 
-      <div class="form-group">
+      <div class="form-group font-weight-bold">
         <%= f.label :email, 'Email' %>
         <%= f.email_field :email, class: 'form-control', placeholder: "ex.taro@gmail.com" %>
       </div>
 
-      <div class="form-group">
+      <div class="form-group font-weight-bold">
         <%= f.label :password, 'Password' %>
         <%= f.password_field :password, class: 'form-control', placeholder: "ex.0938taro" %>
       </div>
 
       <%= f.submit 'Log in', class: 'btn btn-primary ' %> <%# btn btn-〇〇⇒色選択。プライマリーは青。　 %>
+      <%= f.submit '簡単ログイン', class: 'btn btn-success ' %> <%# btn btn-〇〇⇒色選択。プライマリーは青。　 %>
     <% end %> <%# btn-block⇒画面いっぱい広がる。btn-lg、sm、ex、あと何も書かずにデフォルトの４サイズがある　 %>
 
 
-    <p><%= link_to '新規登録はこちら', signup_path %></p> <%# rootingの"名前"がsignupとなっているため %>
-    <p><%= link_to 'パスワードを忘れた方はこちら', signup_path %></p> <%# rootingの"名前"がsignupとなっているため %>
+    <p><%= link_to '新規登録はこちら', admin_signup_path %></p> <%# rootingの"名前"がsignupとなっているため %>
+    <p><%= link_to 'パスワードを忘れた方はこちら', admin_signup_path %></p> <%# rootingの"名前"がsignupとなっているため %>
   </div>
 </div>
