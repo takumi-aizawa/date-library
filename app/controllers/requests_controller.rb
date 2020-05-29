@@ -1,5 +1,6 @@
 class RequestsController < ApplicationController #cabinetへの登録申請、承認等
   before_action :require_user_logged_in, only: [:index] #ApplicationControllerで定義したメソッド。ログインしていないユーザをログイン画面に強制的にとばす
+  before_action :set_request, only: [:show, :edit, :update, :destroy] #特定のパラメータを取り出す。つまりアクションに選択するメソッドを追加・共通化する
   #before_action :correct_user, only: [:destroy] #before_action では only: で指定されたアクションに対して、事前処理を設定できます
 
   
@@ -33,7 +34,7 @@ class RequestsController < ApplicationController #cabinetへの登録申請、�
   end
 
   def update
-    if @message.update(message_params)
+    if @request.update(message_params)
       flash[:success] = 'Message は正常に更新されました'
       redirect_to @message
     else
@@ -42,14 +43,15 @@ class RequestsController < ApplicationController #cabinetへの登録申請、�
     end
   end
 
-  def destroy #一つのデータを削除
-    @message.destroy
+  def destroy
+    @request.destroy #destroy前にfindしている
 
-    flash[:success] = 'Message は正常に削除されました'
-    redirect_to messages_url
+    flash[:success] = 'Request は正常に削除されました'
+    redirect_to new_cabinet_url
+    
   end
   
-  def destroy_all #複数のデータを削除
+  def destroy_all
     checked_data = params[:deletes].keys # ここでcheckされたデータを受け取っています。
     if @cabinets.destroy(checked_data)
       flash[:success] = '削除申請を受け付けました。'
@@ -70,9 +72,16 @@ end
   end
 
   def request_params #セキュリティ対策。newメソッドのフォーム入力データをフィルタリングする。HTTPリク攻撃防止
-    #params.require(:request).permit(:file_no, :file_name, :expired_at, :placed_at) 
+    params.require(:request).permit(:file_no, :file_name, :expired_at, :placed_at)  #Cabinet登録申請ボタンが機能する
     #Requestモデルを収集先に宣言。permit→その中で取得を許可する値。ユーザと管理者の取得情報の区別も可
   end
+  
+  def set_request
+    @request = Request.find(params[:id])
+  end
+  
+  
+  
   
   #def user_admin
   #   @users = User.all

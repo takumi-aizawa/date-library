@@ -5,7 +5,9 @@
 <div class="row">
   <div class="col-sm-6 offset-sm-3 ">
 
-    <%= form_with(model: @request, local: true) do |f| %> <%# local: true⇒画面遷移可能 、@requestはrequest controllerのnewのインスタンス変数でPOSTreateをボタンのリンク先を指定createを %>
+    <%#= form_with(model: @request, local: true) do |f| %> <%# local: true⇒画面遷移可能 、@requestはrequest controllerのnewのインスタンス変数でPOSTreateをボタンのリンク先を指定createを %>
+    <%= form_with(model: @request, url: requests_path,local: true) do |f| %>　<%# request controllerに飛ぶ %>
+    <%#= form_with @request, url: {controller: 'requests', action: 'new' } do |form| %>
       <%= render 'layouts/error_messages', model: f.object %>
       
       <div class="form-group "> <%# form-inline form-control-plaintext で横並び%>

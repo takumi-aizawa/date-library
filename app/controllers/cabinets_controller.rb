@@ -12,14 +12,14 @@ class CabinetsController < ApplicationController #cabinetへの登録申請、�
   end
 
   def new #request仕掛画面で承認ボタン押下後、実行するメソッドでなきゃいけない。5.22
-    #@cabinet = Cabinet.new #cabinet登録画面を表示するために必要
-    @request = Request.new #requestへの登録画面を表示
+    #@cabinet = Cabinet.find(params[:id]) #cabinet登録への登録用5.24　パラメータを渡したいができない。。。
+    @request = Request.new #requestへの登録画面を表示 cabinet new画面表示用5.24
   end
 
   def create
-    @request = Request.new(request_params) #cabinet_paramsを登録するため
+    @cabinet = Cabinet.new(cabinet_params) #cabinet_paramsを登録するため
     
-    if @request.save
+    if @cabinet.save
       flash[:success] = '書庫への登録が完了しました。'
       redirect_to cabinets_url #redirect_toアクションはデータ保存後画面遷移
     else
