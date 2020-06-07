@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-6">
+    <%= form_with(model: @cabinet, local: true) do |f| %>
+      <% if @cabinet.errors.any? %>
+        <div id="error_explanation" class="alert alert-warning">
+          <ul class="mb-0">
+            <% @cabinet.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group "> <%# form-inline form-control-plaintext で横並び%>
+        <%= f.label :file_no, 'ファイルＮｏ' %> <%# f.label f.text_fieldでカラムを指定する %>
+        <%= f.text_field :file_no, class: 'form-control', placeholder: "ex.YGM-01" %> <%# class以下がbootstrap %>
+      </div>
+      <div class="form-group "> 
+        <%= f.label :file_name, 'ファイル名' %>
+        <%= f.text_field :file_name, class: 'form-control', placeholder: "ex.2020fy NSC請求書" %>
+      </div>
+      
+
+      <div class="form-group">
+        <%= f.label :expired_at, '保管期限' %>
+        <%= f.text_field :expired_at, class: 'form-control', placeholder: "ex.20270331" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :placed_at, '保管場所' %>
+        <%= f.text_field :placed_at, class: 'form-control', placeholder: "ex.KI/SJ/1F/P2" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.hidden_field :user_id, value: current_user.id %>
+      </div>
+
+      <div class="form-group">
+        <%= f.hidden_field :status, value: "編集申請中" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :comment, 'コメント' %>
+        <%= f.text_area :comment, class: 'form-control', placeholder: "ex.保管期限修正のため" %>
+      </div>
+
+      <%= f.submit '編集申請', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>

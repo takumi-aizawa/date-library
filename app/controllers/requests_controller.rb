@@ -2,7 +2,7 @@ class RequestsController < ApplicationController #cabinetへの登録申請、�
   before_action :require_user_logged_in, only: [:index] #ApplicationControllerで定義したメソッド。ログインしていないユーザをログイン画面に強制的にとばす
   before_action :set_request, only: [:show, :edit, :update, :destroy] #特定のパラメータを取り出す。つまりアクションに選択するメソッドを追加・共通化する
   #before_action :correct_user, only: [:destroy] #before_action では only: で指定されたアクションに対して、事前処理を設定できます
-
+  #before_action :set_current_user, only: [:create]
   
   def index
     @msg = 'Request data.'
@@ -10,6 +10,7 @@ class RequestsController < ApplicationController #cabinetへの登録申請、�
   end
 
   def show
+    @request = Request.find(params[:id])
   end
 
   def new
@@ -20,6 +21,7 @@ class RequestsController < ApplicationController #cabinetへの登録申請、�
     @request = Request.new(request_params)
 
     if @request.save
+      
       flash[:success] = '登録申請を受け付けました。'
       redirect_to cabinets_url #redirect_toアクションはデータ保存後画面遷移
     else
@@ -34,11 +36,11 @@ class RequestsController < ApplicationController #cabinetへの登録申請、�
   end
 
   def update
-    if @request.update(message_params)
-      flash[:success] = 'Message は正常に更新されました'
-      redirect_to @message
+    if @request.update(request_params)
+      flash[:success] = 'Request は正常に更新されました'
+      redirect_to @request
     else
-      flash.now[:danger] = 'Message は更新されませんでした'
+      flash.now[:danger] = 'Request は更新されませんでした'
       render :edit
     end
   end
@@ -46,8 +48,8 @@ class RequestsController < ApplicationController #cabinetへの登録申請、�
   def destroy
     @request.destroy #destroy前にfindしている
 
-    flash[:success] = 'Request は正常に削除されました'
-    redirect_to new_cabinet_url
+    flash[:success] = '申請を差し戻しました'
+    redirect_to requests_path
     
   end
   
@@ -79,15 +81,3 @@ end
   def set_request
     @request = Request.find(params[:id])
   end
-  
-  
-  
-  
-  #def user_admin
-  #   @users = User.all
-  #   if  current_user.admin == false
-  #       redirect_to root_path
-  #   else
-  #       render action: "index"
-  #   end
-  #end

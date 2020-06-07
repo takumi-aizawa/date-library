@@ -9,10 +9,11 @@ class CabinetsController < ApplicationController #cabinetへの登録申請、�
   end
 
   def show
+    @cabinet = Cabinet.find(params[:id])
   end
 
   def new #request仕掛画面で承認ボタン押下後、実行するメソッドでなきゃいけない。5.22
-    #@cabinet = Cabinet.find(params[:id]) #cabinet登録への登録用5.24　パラメータを渡したいができない。。。
+    @cabinet = Cabinet.new #cabinet登録への登録用5.24　パラメータを渡したいができない。。。
     @request = Request.new #requestへの登録画面を表示 cabinet new画面表示用5.24
   end
 
@@ -20,35 +21,64 @@ class CabinetsController < ApplicationController #cabinetへの登録申請、�
     @cabinet = Cabinet.new(cabinet_params) #cabinet_paramsを登録するため
     
     if @cabinet.save
-      flash[:success] = '書庫への登録が完了しました。'
+      flash[:success] = '書庫への登録申請を受付けました。'
       redirect_to cabinets_url #redirect_toアクションはデータ保存後画面遷移
     else
-      flash.now[:danger] = '書庫への登録に失敗しました。再度やり直してください。'
+      flash.now[:danger] = '書庫への登録申請に失敗しました。再度やり直してください。'
       render 'requests/index' #※要確認！5.19
     end
     
-
+    @request = Request.new(cabinet_params) #request_paramsを登録するため
+    @request.save
+    
   end
 
 
   def edit
+    @cabinet = Cabinet.find(params[:id])
   end
 
-  def update
-    if @message.update(message_params)
-      flash[:success] = 'Message は正常に更新されました'
-      redirect_to @message
+  def update #編集申請
+    @cabinet = Cabinet.find(params[:id])
+    if @cabinet.update(cabinet_params)
+      flash[:success] = '書庫は正常に更新されました'
+      redirect_to cabinets_url
     else
-      flash.now[:danger] = 'Message は更新されませんでした'
+      flash.now[:danger] = '書庫 は更新されませんでした'
+      render :edit
+    end
+  end
+  
+  def update_delete #削除申請ボタン
+    @cabinet = Cabinet.find(params[:id])
+    if @cabinet.update_attributes(status: "削除申請中")
+      flash[:success] = '書庫は削除申請を受付けました'
+      redirect_to cabinets_url
+    else
+      flash.now[:danger] = '書庫は削除申請に失敗しました'
       render :edit
     end
   end
 
-  def destroy #一つのデータを削除
-    @message.destroy
+  def update_accept #承認ボタン
+    @cabinet = Cabinet.find(params[:id])
+    if @cabinet.update_attributes(status: "登録済み")
+      flash[:success] = '書庫に正常に登録されました'
+      redirect_to cabinets_url
+    else
+      flash.now[:danger] = '書庫の登録に失敗しました'
+      render :edit
+    end
+  end
 
-    flash[:success] = 'Message は正常に削除されました'
-    redirect_to messages_url
+
+    
+  def destroy #一つのデータを削除
+    @cabinet = Cabinet.find(params[:id])
+    @cabinet.destroy
+
+    flash[:success] = '申請は正常に取り消しされました'
+    redirect_to cabinets_url
   end
   
   def destroy_all #複数のデータを削除
@@ -68,20 +98,11 @@ end
   private
 
   def cabinet_params #セキュリティ対策。newメソッドのフォーム入力データをフィルタリングする。HTTPリク攻撃防止
-    params.require(:cabinet).permit(:file_no, :file_name, :expired_at, :placed_at) 
+    params.require(:cabinet).permit(:file_no, :file_name, :expired_at, :placed_at, :user_id, :status, :manager_id)
     #Cabinetモデルを収集先に宣言。permit→その中で取得を許可する値。ユーザと管理者の取得情報の区別も可
   end
   
   def request_params #createに記載。使うために必要
-    #params.require(:request).permit(:file_no, :file_name, :expired_at, :placed_at)  
+    params.require(:request).permit(:file_no, :file_name, :expired_at, :placed_at, :user_id)
     #Requestモデルを収集先に宣言。permit→その中で取得を許可する値。ユーザと管理者の取得情報の区別も可
   end
-  
-  #def user_admin
-  #   @users = User.all
-  #   if  current_user.admin == false
-  #       redirect_to root_path
-  #   else
-  #       render action: "index"
-  #   end
-  #end

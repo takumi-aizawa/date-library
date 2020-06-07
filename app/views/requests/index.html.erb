@@ -10,25 +10,20 @@
   <table class="table table-striped table-bordered text-center "> <%# table class="table" 基本のテーブルが作成される＋α %>
 
     <tr class="table-primary ">
-      <th>　</th><th>No.</th><th>File No.</th><th>File Name</th><th>保管期限</th><th>保管場所</th><th>起案者</th><th>起案日</th><th>コメント</th>
+      <th>No.</th><th>File No.</th><th>File Name</th><th>保管期限</th><th>保管場所</th><th>起案者</th><th>起案日</th><th>テスト</th><th>テスト2</th>
     </tr>
 
-    <% @requests.each do |obj| %> <%# 一括データ取り出し %>
+    <% @requests.each do |request| %> <%# 一括データ取り出し %>
     <tr>
-      <td>
-        <div class="form-group">
-          <%= f.check_box :cabinet_id, id: "check1" %>
-        </div>
-      </td>
-      
-      <td><%= obj.id %></td>
-      <td class="text-left"><%= obj.file_no %></td>
-      <td class="text-left"><%= obj.file_name %></td>
-      <td><%= obj.expired_at %></td>
-      <td><%= obj.placed_at %></td>
-      <td><%= obj.user_id %></td>
-      <td><%= obj.created_at.to_s(:datetime_jp) %></td> <%# to_sとは配列を文字列に変換するメソッドで、配列の各要素を文字列に変換して連結した文字列を返します。%>
-      <td><%= obj.comment %></td>
+      <td><%= link_to request.id, request %></td> <%# link_to 文字列, path名。この場合のrequestはrequest_path(request)と同 %>
+      <td class="text-left"><%= request.file_no %></td>
+      <td class="text-left"><%= request.file_name %></td>
+      <td><%= request.expired_at %></td>
+      <td><%= request.placed_at %></td>
+      <td><%= request.user_id %></td>
+      <td><%= request.created_at.to_s(:datetime_jp) %></td> <%# to_sとは配列を文字列に変換するメソッドで、配列の各要素を文字列に変換して連結した文字列を返します。%>
+      <td><%= link_to '差し戻し', request, method: :delete, data: { confirm: '本当に削除してよろしいですか？' }, class: 'btn btn-danger' %></td>
+      <td><%= link_to '承認', request, method: :create, data: { confirm: '本当にして承認してよろしいですか？' }, class: 'btn btn-primary' %></td>
     </tr>
   
     <% end %>
@@ -40,9 +35,9 @@
   <%# end %>
 
 
-  <%= f.submit '承認', class: 'btn btn-primary ' %>  <%# f.submit⇒対応するモデルクラスが何も情報を持っていなければ自動的にcreateアクションへ、すでに情報を持っている場合はupdateアクションへ自動的に振り分けてくれる %>
-<% end %>
+  <% end %>
 
-<%= link_to '差し戻し', @request, method: :delete, data: { confirm: '本当に差し戻してよろしいですか？' }, class: 'btn btn-danger' %>
 
 <%= paginate @requests %> <%# ページネイトができるようになる %>
+
+
