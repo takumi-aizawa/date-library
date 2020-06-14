@@ -5,12 +5,13 @@ class RequestsController < ApplicationController #cabinetへの登録申請、�
   #before_action :set_current_user, only: [:create]
   
   def index
-    @msg = 'Request data.'
-    @requests = Request.order(id: :asc).page(params[:page]).per(10)
+    @msg = 'Cabinet data.'
+   #@cabinets = Cabinet.order(id: :asc).page(params[:page]).per(10)
+    @requests = Cabinet.order(id: :asc).page(params[:page]).per(10).where.not(status: '登録済') #status=登録済以外を表示
   end
 
   def show
-    @request = Request.find(params[:id])
+    @request = Cabinet.find(params[:id])
   end
 
   def new
@@ -44,6 +45,19 @@ class RequestsController < ApplicationController #cabinetへの登録申請、�
       render :edit
     end
   end
+
+  def update_accept #承認ボタン
+    @cabinet = Cabinet.find(params[:id])
+    if @cabinet.update_attributes(status: "登録済")
+      @cabinet.request.update(status: "登録済")
+      flash[:success] = '書庫に正常に登録されました'
+      redirect_to cabinets_url
+    else
+      flash.now[:danger] = '書庫の登録に失敗しました'
+      render :edit
+    end
+  end
+
 
   def destroy
     @request.destroy #destroy前にfindしている
@@ -79,5 +93,5 @@ end
   end
   
   def set_request
-    @request = Request.find(params[:id])
+    @request = Cabinet.find(params[:id])
   end

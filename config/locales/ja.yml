@@ -19,9 +19,9 @@ ja: #エラーメッセージの日本語化用
       request: # モデル名を宣言
         comment: コメント # カラム名を指定する。
 
-  date:
-    formats:
-      default: "%Y/%m/%d"
+  #date:
+    #formats:
+      #default: "%Y/%m/%d"
       
   time:
     formats:

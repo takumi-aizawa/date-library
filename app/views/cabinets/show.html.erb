@@ -1,4 +1,4 @@
-<%= form_with(model: @cabinet, local: true) do |f| %>
+<%#= form_with(model: @cabinet, local: true) do |f| %>
 
 <h1 class="display-5 text-dark">Cabinet(詳細)</h1>
 
@@ -21,7 +21,7 @@
   </tr>
   <tr>
     <th>保管期限</th>
-    <td><%= @cabinet.expired_at %></td>
+    <td><%= @cabinet.expired_at.strftime('%Y/%m/%d') %></td>
   </tr>
   <tr>
     <th>保管場所</th>
@@ -37,7 +37,11 @@
   </tr>
   <tr>
     <th>起案日</th>
-    <td><%= @cabinet.created_at %></td>
+    <td><%= @cabinet.created_at.strftime('%Y/%m/%d') %></td>
+  </tr>
+  <tr>
+    <th>承認者</th>
+    <td><%= @cabinet.manager_id %></td>
   </tr>
 
 </table>
@@ -45,6 +49,8 @@
 <%= link_to '一覧に戻る', cabinets_path, class: 'btn btn-light'  %>
 
 <%= link_to '編集', edit_cabinet_path, class: 'btn btn-info' %>
-<%= link_to '申請取消し', @cabinet, method: :delete, data: { confirm: '本当に取り消してよろしいですか？' }, class: 'btn btn-warning' %>
-<%= link_to '削除申請', @cabinet, method: :delete, data: { confirm: '削除申請してよろしいですか？' }, class: 'btn btn-danger' %> <%# 保留 %>
-<% end %>
+
+<%= link_to '削除申請', update_delete_path(id: @cabinet.id), method: :patch, data: { confirm: '削除申請してよろしいですか？' }, class: 'btn btn-danger disabled: true ' %>
+
+<%= link_to '申請取消し', update_cancel_path(id: @cabinet.id), method: :patch, data: { confirm: '申請を取り消しますか？' }, class: 'btn btn-success' %>
+<%# end %>

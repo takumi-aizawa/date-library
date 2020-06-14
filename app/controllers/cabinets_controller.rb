@@ -25,10 +25,12 @@ class CabinetsController < ApplicationController #cabinetへの登録申請、�
       redirect_to cabinets_url #redirect_toアクションはデータ保存後画面遷移
     else
       flash.now[:danger] = '書庫への登録申請に失敗しました。再度やり直してください。'
-      render 'requests/index' #※要確認！5.19
+      render :new
     end
     
     @request = Request.new(cabinet_params) #request_paramsを登録するため
+    @request.cabinet_id = @cabinet.id #request_id = cabinet_idと定義
+    @request.user_id = current_user.id #requestのuser_id = 現在のidと定義
     @request.save
     
   end
@@ -40,36 +42,50 @@ class CabinetsController < ApplicationController #cabinetへの登録申請、�
 
   def update #編集申請
     @cabinet = Cabinet.find(params[:id])
-    if @cabinet.update(cabinet_params)
-      flash[:success] = '書庫は正常に更新されました'
+    if @cabinet.update_attributes(status: "編集申請中", manager_id:"NULL")
+      flash[:success] = '編集申請を受け付けました'
       redirect_to cabinets_url
     else
-      flash.now[:danger] = '書庫 は更新されませんでした'
+      flash.now[:danger] = '編集申請に失敗しました'
       render :edit
     end
   end
   
   def update_delete #削除申請ボタン
     @cabinet = Cabinet.find(params[:id])
-    if @cabinet.update_attributes(status: "削除申請中")
-      flash[:success] = '書庫は削除申請を受付けました'
+    if @cabinet.update_attributes(status: "削除申請中", manager_id:"NULL")
+      flash[:success] = '削除申請を受付けました'
       redirect_to cabinets_url
     else
-      flash.now[:danger] = '書庫は削除申請に失敗しました'
+      flash.now[:danger] = '削除申請に失敗しました'
+      render :edit
+    end
+  end
+  
+  def update_cancel #申請取り消しボタン
+    @cabinet = Cabinet.find(params[:id])
+    if @cabinet.update_attributes(status: "登録済" )
+      flash[:success] = '申請を取り消しました'
+      redirect_to cabinets_url
+    else
+      flash.now[:danger] = '申請取り消しに失敗しました'
       render :edit
     end
   end
 
   def update_accept #承認ボタン
     @cabinet = Cabinet.find(params[:id])
-    if @cabinet.update_attributes(status: "登録済み")
-      flash[:success] = '書庫に正常に登録されました'
+    if @cabinet.update_attributes(status: "登録済", manager_id:current_user.id) #statusを登録済に変更
+      #@cabinet.request.update(status: "登録済") #request statusの更新は不要なので一旦コメントアウト
+      flash[:success] = 'requestは承認されました'
       redirect_to cabinets_url
     else
-      flash.now[:danger] = '書庫の登録に失敗しました'
-      render :edit
+      flash.now[:danger] = 'requestの承認に失敗しました'
+      render action: :edit
     end
+    #binding.pry #ブレイクポイント
   end
+
 
 
     
@@ -77,7 +93,7 @@ class CabinetsController < ApplicationController #cabinetへの登録申請、�
     @cabinet = Cabinet.find(params[:id])
     @cabinet.destroy
 
-    flash[:success] = '申請は正常に取り消しされました'
+    flash[:success] = '申請を取り消しました'
     redirect_to cabinets_url
   end
   

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   delete :cabinets, to: 'cabinets#destroy_all' #5.6追加　一括削除
   patch 'update_delete', to: 'cabinets#update_delete' #6.6追加
   patch 'update_accept', to: 'cabinets#update_accept' #6.7追加
+  patch 'update_cancel', to: 'cabinets#update_cancel' #6.13追加
   
   resources :cabinets  #, except: [:index]で除外可能
   #get⇒cabinets/index,show,new,edit (4つ)post⇒cabinets/create (1つ)patch⇒cabinets/update(1つ) put⇒cabinets/update(１つ) delete⇒cabinets/destroy(1つ)

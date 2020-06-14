@@ -62,5 +62,11 @@ group :production do #Herokuデプロイ向け環境設定(Mysql→PostgreSQL)5.
   gem 'pg', '>= 0.18', '< 2.0'
 end #デプロイ前の必須事項 1.Gemfile変更 2.config/database.yml変更後、$ bundle install --without production 3.heroku addons:create heroku-postgresql:hobby-dev(postgresqlのaddon登録) 4.$ git add .、$ git commit -m 'for heroku'
 
+gem 'pry' #6.12追加
+
+gem 'paranoia' #6.13追加 論理削除用
+
+gem 'jquery-datatables-rails'
+
 #gem 'activeadmin' #管理画面作成5.5追加
 #gem 'devise'      #〃
